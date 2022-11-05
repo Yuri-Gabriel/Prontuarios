@@ -78,8 +78,11 @@ public class ButtonEvent implements ActionListener {
     		String[] arquivos = this.file.list();
             for (int i = 0; i < arquivos.length; i++) {
                 if(arquivos[i].contains(".pdf")) {
-                	String name = arquivos[i].substring(0, arquivos[i].length() - 4);
-                	this.writeText(this.fileAndPath, name);
+                	String[] name = {
+                			arquivos[i].substring(0, 5).trim(),
+                			arquivos[i].substring(5, arquivos[i].length() - 10).trim(),
+                	};
+                	this.writeText(this.fileAndPath, String.format("%s = %s", name[1], name[0]));
                 }
             }
             boxMenssage("Arquivo salvo em: \n" + this.fileAndPath);
