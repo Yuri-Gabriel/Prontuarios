@@ -21,6 +21,7 @@ public class ButtonEvent implements ActionListener {
     private File file;
     private String fileAndPath;
     private Button pathOnSaveBtn;
+    private String[] lastAndAtualName = {"", ""};
     
     public ButtonEvent(Button searchButton,
     		Button getNames,
@@ -82,7 +83,14 @@ public class ButtonEvent implements ActionListener {
                 			arquivos[i].substring(0, 5).trim(),
                 			arquivos[i].substring(5, arquivos[i].length() - 10).trim(),
                 	};
-                	this.writeText(this.fileAndPath, String.format("%s = %s", name[1], name[0]));
+                	
+                	String line = String.format("%s = %s", name[1], name[0]);
+                	this.lastAndAtualName[1] = line;
+                	if (!this.lastAndAtualName[0].contains(line)) {
+                		this.writeText(this.fileAndPath, line);
+                	}
+                	this.lastAndAtualName[0] = this.lastAndAtualName[1];
+            		this.lastAndAtualName[1] = "";
                 }
             }
             boxMenssage("Arquivo salvo em: \n" + this.fileAndPath);
